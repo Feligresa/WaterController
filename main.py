@@ -2,6 +2,8 @@ import sys
 from classes.app import App
 
 BASE_URL = ""
+INTERVAL_SECONDS = 900
+
 PUMP_GPIO = 0
 # Plant IDs are sorted low to high
 VALVE_GPIO1 = 0
