@@ -1,6 +1,7 @@
 from classes.app import App
 
 BASE_URL = ""
+PUMP_GPIO = 0
 VALVE_GPIO1 = 0
 VALVE_GPIO2 = 0
 VALVE_GPIO3 = 0
