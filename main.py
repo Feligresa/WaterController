@@ -5,6 +5,10 @@ BASE_URL = "http://192.168.189.20"
 INTERVAL_SECONDS = 900
 WATERING_DUR_SECONDS = 10
 
+# If the pump is low pressure, set to True.
+# Will water each plant sequentially to avoid uneven watering.
+PUMP_LOW_PRESSURE = False
+
 PUMP_GPIO = 0
 # Plant IDs are sorted low to high
 VALVE_GPIO1 = 0

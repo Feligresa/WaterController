@@ -7,7 +7,7 @@ except RuntimeError:
     from .test_gpio import TestGPIO
     gpio = TestGPIO()
 
-from ..main import PUMP_GPIO, WATERING_DUR_SECONDS
+from ..main import PUMP_GPIO, WATERING_DUR_SECONDS, PUMP_LOW_PRESSURE
 from ..dtos.sensor_data import SensorData
 
 
@@ -27,15 +27,23 @@ class WaterController:
                 if valve is not None:
                     openvalves.append(valve)
 
-        for valve in openvalves:
-            self.toggle_valve(valve)
+        if PUMP_LOW_PRESSURE:
+            for valve in openvalves:
+                self.toggle_valve(valve)
+                self.toggle_pump
+                time.sleep(WATERING_DUR_SECONDS)
+                self.toggle_pump()
+                self.toggle_valve(valve)
+        else:
+            for valve in openvalves:
+                self.toggle_valve(valve)
 
-        self.toggle_pump()
-        time.sleep(WATERING_DUR_SECONDS * len(openvalves))
-        self.toggle_pump()
+            self.toggle_pump()
+            time.sleep(WATERING_DUR_SECONDS * len(openvalves))
+            self.toggle_pump()
 
-        for valve in openvalves:
-            self.toggle_valve(valve)
+            for valve in openvalves:
+                self.toggle_valve(valve)
         
         gpio.cleanup()
 
