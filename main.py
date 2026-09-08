@@ -1,8 +1,9 @@
 import sys
 from classes.app import App
 
-BASE_URL = ""
+BASE_URL = "http://192.168.189.20"
 INTERVAL_SECONDS = 900
+WATERING_DUR_SECONDS = 10
 
 PUMP_GPIO = 0
 # Plant IDs are sorted low to high
