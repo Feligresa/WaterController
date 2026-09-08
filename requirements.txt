@@ -1,2 +1,2 @@
-requests
+python3-requests
 python3-rpi.gpio
