@@ -12,6 +12,7 @@ class Fetcher:
         r = requests.get(url=f'{self.base_url}/api/plants',
                          headers={'X-Api-Key': self.api_key})
         data: list[Plant] = r.json()
+        print(f"Fetched sensor data: {data}")
 
         ids = [x['waterlevel'] for x in sorted(data, key=lambda item: item["id"])]
         while len(ids) < 4:
