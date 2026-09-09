@@ -1,7 +1,7 @@
 import time
 from config import INTERVAL_SECONDS
-from .water_controller import WaterController
-from .fetcher import Fetcher
+from classes.water_controller import WaterController
+from classes.fetcher import Fetcher
 
 class App:
     def __init__(self):
