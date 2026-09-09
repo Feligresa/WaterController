@@ -1,7 +1,7 @@
 import sys
 from classes.app import App
 
-BASE_URL = "http://192.168.189.20"
+BASE_URL = "http://192.168.189.22"
 INTERVAL_SECONDS = 900
 WATERING_DUR_SECONDS = 10
 
