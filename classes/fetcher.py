@@ -1,7 +1,7 @@
 import requests
-from ..main import BASE_URL, API_KEY
-from ..dtos.sensor_data import SensorData
-from ..models.plant import Plant
+from config import BASE_URL, API_KEY
+from dtos.sensor_data import SensorData
+from models.plant import Plant
 
 class Fetcher:
     def __init__(self):

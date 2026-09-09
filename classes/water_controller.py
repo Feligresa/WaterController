@@ -7,8 +7,8 @@ except RuntimeError:
     from .test_gpio import TestGPIO
     gpio = TestGPIO()
 
-from ..main import PUMP_GPIO, WATERING_DUR_SECONDS, PUMP_LOW_PRESSURE
-from ..dtos.sensor_data import SensorData
+from config import PUMP_GPIO, WATERING_DUR_SECONDS, PUMP_LOW_PRESSURE
+from dtos.sensor_data import SensorData
 
 
 class WaterController:

@@ -1,5 +1,5 @@
 import time
-from ..main import INTERVAL_SECONDS
+from config import INTERVAL_SECONDS
 from .water_controller import WaterController
 from .fetcher import Fetcher
 

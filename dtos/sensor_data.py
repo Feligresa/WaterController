@@ -1,4 +1,4 @@
-from ..main import (VALVE_GPIO1, VALVE_GPIO2, VALVE_GPIO3, VALVE_GPIO4)
+from config import (VALVE_GPIO1, VALVE_GPIO2, VALVE_GPIO3, VALVE_GPIO4)
 
 class SensorData:
     def __init__(self, s1: int, s2: int, s3: int, s4: int) -> None:
