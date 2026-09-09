@@ -9,8 +9,12 @@ class Fetcher:
         self.api_key = API_KEY
 
     def get_latest_sensors(self) -> SensorData:
+        headers = {'X-API-Key': self.api_key,
+                   'Content-Type': 'application/json',
+                   'Accept': 'application/json'}
+
         r = requests.get(url=f'{self.base_url}/api/plants',
-                         headers={'X-Api-Key': self.api_key})
+                         headers=headers)
         data: list[Plant] = r.json()
         print(f"Fetched sensor data: {data}")
 
