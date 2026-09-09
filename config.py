@@ -17,7 +17,7 @@ VALVE_GPIO4 = 0
 
 try:
     with open('ApiKey.txt', 'r') as f:
-        API_KEY = f.read()
+        API_KEY = f.read().strip()
 except FileNotFoundError:
     print('Missing ApiKey.txt')
     sys.exit(1)
