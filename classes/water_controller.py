@@ -1,20 +1,17 @@
 import time
 
-try:
-    import RPi.GPIO as gpio # type: ignore
-except RuntimeError:
-    print("Error importing RPi.GPIO. Fallback to test.")
-    from .test_gpio import TestGPIO
-    gpio = TestGPIO()
+from gpiozero import DigitalOutputDevice
 
 from config import PUMP_GPIO, WATERING_DUR_SECONDS, PUMP_LOW_PRESSURE
 from dtos.sensor_data import SensorData
 
 
 class WaterController:
-    def water(self, sensor_data: SensorData):
-        gpio.setmode(gpio.BOARD)
+    def __init__(self):
+        self.pump = DigitalOutputDevice(PUMP_GPIO, initial_value=False)
+        self.valves: dict[int, DigitalOutputDevice] = {}
 
+    def water(self, sensor_data: SensorData):
         sensors = [sensor_data.sensor1,
                    sensor_data.sensor2,
                    sensor_data.sensor3,
@@ -30,7 +27,7 @@ class WaterController:
         if PUMP_LOW_PRESSURE:
             for valve in openvalves:
                 self.toggle_valve(valve)
-                self.toggle_pump
+                self.toggle_pump()
                 time.sleep(WATERING_DUR_SECONDS)
                 self.toggle_pump()
                 self.toggle_valve(valve)
@@ -44,17 +41,22 @@ class WaterController:
 
             for valve in openvalves:
                 self.toggle_valve(valve)
-        
-        gpio.cleanup()
+
+        self.pump.close()
+        for valve in self.valves.values():
+            valve.close()
 
     def toggle_valve(self, valve: int):
-        if gpio.output(valve, False):
-            gpio.output(valve, True)
+        device = self.valves.setdefault(
+            valve, DigitalOutputDevice(valve, initial_value=False)
+        )
+        if device.is_active:
+            device.off()
         else:
-            gpio.output(valve, False)
+            device.on()
 
     def toggle_pump(self):
-        if gpio.output(PUMP_GPIO, False):
-            gpio.output(PUMP_GPIO, True)
+        if self.pump.is_active:
+            self.pump.off()
         else:
-            gpio.output(PUMP_GPIO, False)
+            self.pump.on()
